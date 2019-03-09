@@ -41,7 +41,7 @@ def subnet_mask_to_cidr(subnet_mask):
     """
     subnet_mask2 = subnet_mask.split(".")
     subnet_mask2 = list(map(int, subnet_mask2))
-    print(subnet_mask2)
+    #print(subnet_mask2)
     subnet_mask3 = []
     for i in subnet_mask2:
         x = bin(i)
@@ -49,10 +49,11 @@ def subnet_mask_to_cidr(subnet_mask):
         subnet_mask3.append(y[2:])
     subnet_mask3 = "".join(subnet_mask3)
     cdirsum = 0
-    for i in len(subnet_mask3):
+    for i in subnet_mask3:
         cdirsum += int(i)
-    print(cdirsum)
-    return subnet_mask3
+        if i == 0:
+            break
+    return cdirsum
 
 
 def main():
@@ -65,7 +66,7 @@ def main():
         if input1 == "1":
             input2 = input("What is your CIDR?\n")
             result2 = subnet_mask_to_cidr(input2)
-            print(result2,"\n")
+            print("CDIR = {}{}".format("/", result2))
             main()
         elif input1.lower == "2":
             print("Test 2")
