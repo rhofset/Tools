@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from textwrap import wrap
+
 def divtest():
      subnet = {"/32" : "255.255.255.255",
               "/31" : "255.255.255.254",
@@ -56,6 +58,31 @@ def subnet_mask_to_cidr(subnet_mask):
     return cdirsum
 
 
+
+def cidr_to_subnet_mask(cidr):
+    cidr2 = bin(cidr)
+    len_cidr = []
+    for i in range(cidr):
+        i = 1
+        len_cidr.append(i)
+    print(len_cidr)
+    len_cidr2 = ",".join(str(i) for i in len_cidr)
+    print(len_cidr2)
+    len_cidr3 = len_cidr2.replace(",", "")
+    print(len_cidr3)
+    len_cidr4 = wrap(len_cidr, 8)
+    print(len_cidr4)
+    """
+    cidr_list = []
+    while len_cidr3:
+        cidr_list.append(len_cidr3[:8])
+        cidr_list = len_cidr3[8:]
+    print(cidr_list)
+    print(type(cidr_list))
+    """
+    return cidr2
+
+
 def main():
     """
     Main menu
@@ -66,17 +93,19 @@ def main():
         if input1 == "1":
             input2 = input("What is your subnet mask?\n")
             result2 = subnet_mask_to_cidr(input2)
-            print("CDIR = {}{}".format("/", result2))
+            print("CIDR = {}{}".format("/", result2))
             main()
-        elif input1.lower == "2":
-            print("Test 2")
+        elif input1 == "2":
+            input3 = int(input("What is your CIDR?\n"))
+            result3 = cidr_to_subnet_mask(input3)
+            print("{}".format(result3))
         else:
             exit()
 
 
 def menu():
     print("1. Convert from subnet mask to CIDR\n",
-        "2. Convert from CIDR to subnet mask\n")
+          "2. Convert from CIDR to subnet mask\n")
 
 if __name__ == "__main__":
     main()
