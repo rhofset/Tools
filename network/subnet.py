@@ -39,9 +39,23 @@ def subnet_converter():
             "/1" : "0.0.0.0"} #Not valid
 
 
+
+
 def main():
-    pass
-    
+    menu()
+    input1 = input("What do you want to do? Anything else = exit")
+    while True:
+        if input1.lower == "1":
+            print("Test 1")
+        elif input1.lower == "2":
+            print("Test 2")
+        else:
+            exit()
 
-main()
 
+def menu():
+    print("1. Convert from CIDR to subnet mask\n",
+        "2. Convert from subnet mask to CIDR\n")
+
+if __name__ == "__main__":
+    main()
