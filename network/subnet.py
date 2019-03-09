@@ -64,7 +64,7 @@ def main():
     input1 = input("What do you want to do? Anything else = exit\n")
     while input1:
         if input1 == "1":
-            input2 = input("What is your CIDR?\n")
+            input2 = input("What is your subnet mask?\n")
             result2 = subnet_mask_to_cidr(input2)
             print("CDIR = {}{}".format("/", result2))
             main()
