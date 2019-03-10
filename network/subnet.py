@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from textwrap import wrap
 
 def divtest():
      subnet = {"/32" : "255.255.255.255",
@@ -58,29 +57,39 @@ def subnet_mask_to_cidr(subnet_mask):
     return cdirsum
 
 
-
 def cidr_to_subnet_mask(cidr):
     cidr2 = bin(cidr)
     len_cidr = []
     for i in range(cidr):
         i = 1
         len_cidr.append(i)
-    print(len_cidr)
+    #print(len_cidr)
+    #print(len(len_cidr))
     len_cidr2 = ",".join(str(i) for i in len_cidr)
-    print(len_cidr2)
+    #print(len_cidr2)
+    #print(len(len_cidr2))
     len_cidr3 = len_cidr2.replace(",", "")
-    print(len_cidr3)
-    len_cidr4 = wrap(len_cidr, 8)
-    print(len_cidr4)
-    """
-    cidr_list = []
-    while len_cidr3:
-        cidr_list.append(len_cidr3[:8])
-        cidr_list = len_cidr3[8:]
-    print(cidr_list)
-    print(type(cidr_list))
-    """
-    return cidr2
+    #print(len_cidr3)
+    #print(len(len_cidr3))
+    chars = 31
+    for i in range(chars):
+        if len(len_cidr3) <= 31:
+            if i == "1":
+                continue
+            else:
+                bit = str("0")
+                len_cidr3 += bit
+    #print(len_cidr3)
+    #print(len(len_cidr3))
+    len_cidr4 = [len_cidr3[0:8], len_cidr3[8:16], len_cidr3[16:24], len_cidr3[24:32]]
+    #print(len_cidr4)
+    len_cidr5 = []
+    for i in len_cidr4:
+        len_cidr5.append(int(i,2))
+    #print(len_cidr5)
+    #len_cidr6 = ".".join(map(str, len_cidr5))
+    #print(len_cidr6)
+    return ".".join(map(str, len_cidr5))
 
 
 def main():
@@ -91,12 +100,12 @@ def main():
     input1 = input("What do you want to do? Anything else = exit\n")
     while input1:
         if input1 == "1":
-            input2 = input("What is your subnet mask?\n")
+            input2 = input("\nWhat is your subnet mask?\n")
             result2 = subnet_mask_to_cidr(input2)
             print("CIDR = {}{}".format("/", result2))
             main()
         elif input1 == "2":
-            input3 = int(input("What is your CIDR?\n"))
+            input3 = int(input("\nWhat is your CIDR?\n"))
             result3 = cidr_to_subnet_mask(input3)
             print("{}".format(result3))
         else:
