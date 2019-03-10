@@ -63,14 +63,8 @@ def cidr_to_subnet_mask(cidr):
     for i in range(cidr):
         i = 1
         len_cidr.append(i)
-    #print(len_cidr)
-    #print(len(len_cidr))
     len_cidr2 = ",".join(str(i) for i in len_cidr)
-    #print(len_cidr2)
-    #print(len(len_cidr2))
     len_cidr3 = len_cidr2.replace(",", "")
-    #print(len_cidr3)
-    #print(len(len_cidr3))
     chars = 31
     for i in range(chars):
         if len(len_cidr3) <= 31:
@@ -79,16 +73,10 @@ def cidr_to_subnet_mask(cidr):
             else:
                 bit = str("0")
                 len_cidr3 += bit
-    #print(len_cidr3)
-    #print(len(len_cidr3))
     len_cidr4 = [len_cidr3[0:8], len_cidr3[8:16], len_cidr3[16:24], len_cidr3[24:32]]
-    #print(len_cidr4)
     len_cidr5 = []
     for i in len_cidr4:
         len_cidr5.append(int(i,2))
-    #print(len_cidr5)
-    #len_cidr6 = ".".join(map(str, len_cidr5))
-    #print(len_cidr6)
     return ".".join(map(str, len_cidr5))
 
 
