@@ -58,7 +58,6 @@ def subnet_mask_to_cidr(subnet_mask):
 
 
 def cidr_to_subnet_mask(cidr):
-    cidr2 = bin(cidr)
     len_cidr = []
     for i in range(cidr):
         i = 1
