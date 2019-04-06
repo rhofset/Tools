@@ -36,7 +36,7 @@
 """
 
 
-def subnet_mask_to_cidr(subnet_mask):
+def decimal_to_binary(subnet_mask):
     """
     Convert between subnet mask and CIDR
     """
@@ -48,9 +48,14 @@ def subnet_mask_to_cidr(subnet_mask):
         y = str(x)
         subnet_mask3.append(y[2:])
     subnet_mask3 = "".join(subnet_mask3)
-    print(subnet_mask3, "test")
+    #print(subnet_mask3, "test")
+    return subnet_mask3
+
+
+def subnet_mask_to_cidr(subnet_mask):
+    subnet_mask = decimal_to_binary(subnet_mask)
     cdirsum = 0
-    for i in subnet_mask3:
+    for i in subnet_mask:
         cdirsum += int(i)
         if i == 0:
             break
