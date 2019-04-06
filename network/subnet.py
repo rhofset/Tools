@@ -87,8 +87,34 @@ def cidr_to_subnet_mask(cidr):
     return ".".join(map(str, len_cidr5))
 
 
-def calc_broadcast_addr(addr1 = "192.168.0.1", mask = "255.255.255.0"):
-    pass
+def calc_broadcast_addr(addr = "192.168.0.1", mask = "255.255.255.0"):
+    """
+    Calculate the broadcast address.
+    """
+    #TODO Make a own function to add enough 0 in binary, maybe also add the b' so the '&' can work propertly. 
+    addr = decimal_to_binary(addr)
+    mask = decimal_to_binary(mask)
+    print(addr, mask, "testing 1")
+    binsum = int(addr) & int(mask)
+    print(binsum, "testing 2")
+    binsum = str(binsum)
+
+    #Make this its own funct? Same as the 14 ish last lines in cidr_to_subnet_mask function...
+    binsum2 = binsum.replace(",", "")
+    chars = 31
+    for i in range(chars):
+        if len(binsum2) <= 31:
+            if i == "1":
+                continue
+            else:
+                bit = str("0")
+                binsum2 += bit
+    binsum_split = [binsum[0:8], binsum[8:16], binsum[16:24], binsum[24:32]]
+    print(binsum_split, "testing 3")
+    binsum_split2 = []
+    for i in binsum_split:
+        binsum_split2.append(int(i,2))
+    return ".".join(map(str, binsum_split2))
 
 
 def main():
@@ -111,6 +137,11 @@ def main():
             result3 = cidr_to_subnet_mask(input3)
             print("{} is your network mask\n".format(result3))
             main()
+        elif input1 == "3":
+            input4 = input("\nWhat is your ip address?")
+            input5 = input("\nWhat is your network mask?")
+            result4 = calc_broadcast_addr(input4, input5)
+            print("Your ip is: {}\n, and your network mask is: {}\n, then your broadcast address is: {}".format(input4, input5, result4))
         else:
             exit()
 
@@ -120,7 +151,8 @@ def menu():
     Prints the menu
     """
     print("1. Convert from subnet mask to CIDR\n",
-          "2. Convert from CIDR to subnet mask\n")
+          "2. Convert from CIDR to subnet mask\n",
+          "3. Find the broadcast address.\n")
 
 if __name__ == "__main__":
     main()
