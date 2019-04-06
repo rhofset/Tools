@@ -42,7 +42,6 @@ def subnet_mask_to_cidr(subnet_mask):
     """
     subnet_mask2 = subnet_mask.split(".")
     subnet_mask2 = list(map(int, subnet_mask2))
-    #print(subnet_mask2)
     subnet_mask3 = []
     for i in subnet_mask2:
         x = bin(i)
@@ -58,6 +57,9 @@ def subnet_mask_to_cidr(subnet_mask):
 
 
 def cidr_to_subnet_mask(cidr):
+    """
+    Convert between CIDR and subnet mask
+    """
     len_cidr = []
     for i in range(cidr):
         i = 1
@@ -104,6 +106,9 @@ def main():
 
 
 def menu():
+    """
+    Prints the menu
+    """
     print("1. Convert from subnet mask to CIDR\n",
           "2. Convert from CIDR to subnet mask\n")
 
