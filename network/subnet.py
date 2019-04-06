@@ -48,6 +48,7 @@ def subnet_mask_to_cidr(subnet_mask):
         y = str(x)
         subnet_mask3.append(y[2:])
     subnet_mask3 = "".join(subnet_mask3)
+    print(subnet_mask3, "test")
     cdirsum = 0
     for i in subnet_mask3:
         cdirsum += int(i)
@@ -79,6 +80,10 @@ def cidr_to_subnet_mask(cidr):
     for i in len_cidr4:
         len_cidr5.append(int(i,2))
     return ".".join(map(str, len_cidr5))
+
+
+def calc_broadcast_addr(addr1 = "192.168.0.1", mask = "255.255.255.0"):
+    pass
 
 
 def main():
