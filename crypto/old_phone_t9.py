@@ -65,4 +65,4 @@ def translate(string):
     print(new_list)
 
 if __name__ == "__main__":
-    translate("444 333 999 666 88")
+    translate(input())
