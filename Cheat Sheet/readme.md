@@ -1,6 +1,6 @@
 # Cheat sheet
 
-- SQLi (under construction)
+- SQLi
 - XSS (under construction)
 - Injection (under construction)
 - RCE (under construction)
