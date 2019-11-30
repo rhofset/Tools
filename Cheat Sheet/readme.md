@@ -2,8 +2,7 @@
 
 - SQLi
 - XSS (under construction)
-- Injection (under construction)
+- Command Injection (under construction)
 - RCE (under construction)
-- Injection (under construction)
 
 

@@ -1,0 +1,5 @@
+# Command Injection
+
+```
+;, |, ||,  &, or && 
+```
