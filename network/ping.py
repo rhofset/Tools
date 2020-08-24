@@ -36,7 +36,7 @@ def hostaddr():
         ip_list.append(host)
         f = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=254) as executor:
-        for i in tqdm(ip_list):
+        for i in ip_list:
             f.append([(host, executor.submit(functools.partial(ping, i)))])
 
     for i in ok_ip_addr:
