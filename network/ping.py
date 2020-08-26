@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
+import argparse
+import concurrent.futures
+from datetime import datetime
+import functools
+from netaddr import IPNetwork
 import subprocess
 import platform
-import socket
 from tqdm import tqdm
-import concurrent.futures
-import functools
-from datetime import datetime
-
 
 startTime = datetime.now()
 ok_ip_addr = []
@@ -20,30 +20,26 @@ def ping(ip):
         ok_ip_addr.append(ip)
     else:
         not_ok_ip_addr.append(ip)
-    
 
-def hostaddr():
+def hostaddr(ip):
     executor = concurrent.futures.ThreadPoolExecutor(254)
-    interface = socket.gethostbyname(socket.gethostname()).split(".")
-
-    interface = interface[:-1]
-
-    interface_joined = ".".join(interface)
-
     ip_list = []
-    for i in range(255):
-        host = interface_joined + "." + str(i)
+    for host in IPNetwork(ip):
         ip_list.append(host)
         f = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=254) as executor:
-        for i in ip_list:
+        for i in tqdm(ip_list):
             f.append([(host, executor.submit(functools.partial(ping, i)))])
 
-    for i in ok_ip_addr:
-        print(i)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-ip','--ipsubnet', help='IP address and subnet. Example: -IP <IP>/<SUBNET CIDR> or -IP <IP> for a single IP.',required=False)
+    args = parser.parse_args()
 
+    hostaddr(args.ipsubnet)
+    print("\n")
+    for i in sorted(ok_ip_addr):
+        print(i)
     print("\n")
     print(datetime.now() - startTime)
-
-if __name__ == "__main__":
-    hostaddr()
+    
