@@ -18,16 +18,15 @@ def ping(ip):
     ping_result = subprocess.getoutput("ping " + argument + " 1 " + str(ip))
     if "TTL" in ping_result:
         ok_ip_addr.append(ip)
-    else:
-        not_ok_ip_addr.append(ip)
+    else: 
+        not_ok_ip_addr.append(ip) # This is not in use at this moment
 
 def hostaddr(ip):
-    executor = concurrent.futures.ThreadPoolExecutor(254)
     ip_list = []
     for host in IPNetwork(ip):
         ip_list.append(host)
         f = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=254) as executor:
+    with concurrent.futures.ThreadPoolExecutor(254) as executor: # Change the number to how many threads you want.
         for i in tqdm(ip_list):
             f.append([(host, executor.submit(functools.partial(ping, i)))])
 
