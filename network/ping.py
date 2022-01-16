@@ -16,7 +16,7 @@ not_ok_ip_addr = []
 
 def ping(ip):
     argument = '-n' if platform.system().lower() == 'windows' else '-c'
-    ping_result = subprocess.getoutput("ping " + argument + " 1 " + str(ip))
+    ping_result = subprocess.getoutput(f"ping {argument} {args.pingretry} {str(ip)}")
     if "TTL" in ping_result:
         ok_ip_addr.append(ip)
     else: 
@@ -35,7 +35,8 @@ def hostaddr(ip):
     ip_list = []
     for host in IPNetwork(ip):
         ip_list.append(host)
-        f = []
+    print(f"[!] Scanning {len(ip_list)} ip(s)")
+    f = []
     with concurrent.futures.ThreadPoolExecutor(254) as executor: # Change the number to how many threads you want.
         for i in ip_list:
             f.append([(host, executor.submit(functools.partial(ping, i)))])
@@ -43,11 +44,12 @@ def hostaddr(ip):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-ip','--ipsubnet', help='IP address and subnet. Example: -IP <IP>/<SUBNET CIDR> or -IP <IP> for a single IP.',required=False)
+    parser.add_argument('-r','--pingretry', help='How many time to retry ping.',required=False, default="1")
     args = parser.parse_args()
 
     hostaddr(args.ipsubnet)
-    print("\n")
     sorted_list = sorted(ok_ip_addr)
+    print(f"[!] Found {len(sorted_list)} ip(s) that is possible to ping")
     sorted_list_host = []
     for i in tqdm(sorted_list):
         sorted_list_host.append(f"{i}, {host(i)[0]}")
